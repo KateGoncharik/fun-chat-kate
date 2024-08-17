@@ -1,0 +1,277 @@
+html {
+  font-size: 14px;
+}
+
+:root {
+  --text: white;
+  --disabled-text: #eee;
+  --dusty-rose: #db8b87;
+  --disabled-button: #ccc;
+  --chat: #f17d0f4f;
+  --chat2: #e3b89a;
+  --chat3: #ffdfbcab;
+  --chat4: #fff0e5;
+  --active-users: #b8400580;
+  --inactive-users: #94593b3b;
+}
+
+
+.app {
+  margin: 0 auto;
+  padding: 2%;
+  background-color: var(--dusty-rose);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.nav {
+  margin: 1%;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-form {
+  margin: 0 auto;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-description {
+  padding: 2%;
+  font-size: calc(1vw + 1vh + 2vmin);
+  letter-spacing: 0.4px;
+}
+
+.author-block-wrapper {
+  width: 15em;
+  height: 20em;
+}
+
+.author-block {
+  width: 100%;
+  height: 100%;
+  background-image: url('src/assets/img/kate.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login, .logout {
+  padding: 1%;
+  width: 30%;
+  background-color: var(--dusty-rose);
+  transition: 1s;
+}
+
+
+
+.login:hover, .logout:hover {
+  cursor: pointer;
+  background-color: var(--text);
+  color: var(--dusty-rose);
+  transition: 1s;
+}
+
+.login:disabled, .logout:disabled {
+  background-color: var(--disabled-button);
+  color: var(--disabled-text);
+  cursor: not-allowed;
+}
+
+
+.school-logo {
+  width: 13%;
+  height: 50px;
+  background-image: url('src/assets/img/logo.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.chat-wrapper {
+  margin: 2% 0;
+  padding: 1%;
+  display: flex;
+  background-color: var(--chat2);
+  border: 3px solid var(--active-users);
+  box-shadow: inset 2px -6px 10px 5px #0000006b;
+}
+
+.users {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.main-footer, .main-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.current-user-login {
+  margin: 2%;
+}
+
+.active-users {
+  margin-bottom: 2%;
+  padding: 2%;
+  min-height: 20px;
+  background-color: var(--active-users);
+  border: 1px solid var(--disabled-button);
+  user-select: none;
+}
+
+.inactive-users {
+  margin: 2% 0;
+  padding: 2%;
+  min-height: 20px;
+  background-color: var(--inactive-users);
+  border: 1px solid var(--disabled-button);
+  user-select: none;
+
+}
+
+.active-user,.inactive-user {
+  padding: 0 2%;
+  border: 1px solid var(--dusty-rose);
+  transition: 1s;
+}
+.active-user:hover, .inactive-user:hover {
+  background-color: var(--chat);
+  cursor: pointer;
+  transition: 1s;
+}
+
+.user-login {
+  height: 100%;
+  margin: 0;
+  padding: 2%;
+}
+
+.dialog-window {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dialog-header {
+  padding: 1% 0;
+  width: 100%;
+ display: flex;
+ justify-content: space-evenly;
+ background-color: var(--chat);
+}
+.online {
+  color: green;
+}
+.offline {
+  color: gray;
+}
+
+.dialog-history-box {
+  height: 50vh;
+  width: 95%;
+  background-color: var(--chat3);
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.no-message-history-title, .no-user-selected-title {
+  text-align: center;
+  color: var(--active-users);
+  font-size: 1.4em;
+}
+
+.dialog-craft-message-box {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.send-message-button {
+  background-color: var(--chat);
+  transition: 1s;
+
+}
+.send-message-button:hover {
+  cursor: pointer;
+  background-color: var(--chat2);
+  transition: 1s;
+}
+
+.message-input{
+  width: 70%;
+  background-color: var(--chat4);
+}
+
+.message-box {
+  margin: 2%;
+  padding: 2%;
+width: 50%;
+  height: 80px;
+  background-color: var(--chat);
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+}
+
+.message-text-box {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.message-time, .message-status {
+  color: var(--active-users);
+}
+
+.mine {
+  align-self: flex-end;
+  text-align: right;
+}
+
+.him {
+  align-self: flex-start;
+  text-align: left;
+
+}
+
+@media(min-width: 300px){
+  html {
+    font-size: 12px;
+  }
+}
+
+@media(min-width: 600px){
+  html {
+    font-size: 16px;
+  }
+}
+
+
+
+
+@media(min-width: 800px){
+  html {
+    font-size: 20px;
+  }
+}

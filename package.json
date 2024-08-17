@@ -1,0 +1,57 @@
+{
+  "name": "fun-chat",
+  "version": "1.0.0",
+  "description": "Fun-chat",
+  "main": "./src/index.ts",
+  "private": true,
+  "scripts": {
+    "build": "tsx node_modules/webpack/bin/webpack --mode=production --node-env=production",
+    "build:dev": "tsx node_modules/webpack/bin/webpack --mode=development --node-env=development",
+    "build:prod": "tsx node_modules/webpack/bin/webpack --mode=production --node-env=production",
+    "start": "tsx node_modules/webpack/bin/webpack serve --mode=development --node-env=development",
+    "lint": "eslint . --ext .ts",
+    "deploy": "npm run build && npx gh-pages -d dist -e fun-chat",
+    "format:fix": "prettier --write .",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "module",
+    "url": ""
+  },
+  "author": "Kate Goncharick",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^19.0.3",
+    "@commitlint/config-conventional": "^19.0.3",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
+    "@webpack-cli/generators": "^3.0.4",
+    "css-loader": "^6.10.0",
+    "husky": "^9.0.11",
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.25.2",
+    "gh-pages": "^6.1.1",
+    "prettier": "3.1.1",
+    "style-loader": "^3.3.4",
+    "ts-loader": "^9.4.3",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.3",
+    "webpack": "^5.85.0",
+    "webpack-cli": "^5.1.1",
+    "webpack-dev-server": "^5.0.1"
+  },
+  "dependencies": {
+    "esbuild-loader": "^4.0.3",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-webpack-plugin": "^4.0.1",
+    "fork-ts-checker-webpack-plugin": "^9.0.2",
+    "html-webpack-plugin": "^5.5.1",
+    "mini-css-extract-plugin": "^2.7.6",
+    "tsconfig-paths-webpack-plugin": "^4.1.0"
+  }
+}
