@@ -1,7 +1,7 @@
 import Component from "component";
 import isCurrentLocation from "@/utils/compare-location";
 import createInputs from "./auth-inputs";
-import handleLogin from "./handle-login.ts";
+import handleLoginUser from "./handle-login-user.ts";
 
 export default function createAuthPage(): Component {
   const fieldSet = new Component(
@@ -20,7 +20,7 @@ export default function createAuthPage(): Component {
   loginButton.setAttribute("type", "submit");
 
   loginButton.addListener("click", (event) => {
-    handleLogin(event);
+    handleLoginUser(event);
   });
 
   const authForm = new Component(
@@ -30,7 +30,7 @@ export default function createAuthPage(): Component {
   );
   window.onkeydown = (e): void => {
     if (e.code === "Enter" && isCurrentLocation("auth")) {
-      handleLogin(e);
+      handleLoginUser(e);
     }
   };
   return new Component(

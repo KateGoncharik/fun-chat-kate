@@ -1,5 +1,6 @@
 import Component from "component";
-import handleLogout from "../auth/handle-logout";
+import { AUTHORIZED_USER_KEY } from "@/storage";
+import handleLogoutUser from "../auth/handle-logout-user";
 
 export default function createHeader(): Component {
   const logoutButton = new Component({
@@ -9,9 +10,9 @@ export default function createHeader(): Component {
   });
 
   logoutButton.addListener("click", () => {
-    handleLogout();
+    handleLogoutUser();
   });
-  const user = sessionStorage.getItem("authorized-user");
+  const user = sessionStorage.getItem(AUTHORIZED_USER_KEY);
   if (!user) {
     throw new Error("User expected");
   }

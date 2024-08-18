@@ -1,5 +1,5 @@
-import { saveSelectedUserData } from "@/storage";
-import type { UserData } from "@/types";
+import { setSelectedUserData } from "@/storage";
+import type { UserAuthData } from "@/types";
 import Component from "component";
 import { updateDialogHeader } from "./dialog-header";
 import {
@@ -8,7 +8,7 @@ import {
 } from "./dialog-craft-message-block";
 import { updateDialogHistory } from "./dialog-history-box";
 
-export default function createUserBlock({ login }: UserData): Component {
+export default function createUserBlock({ login }: UserAuthData): Component {
   const userLogin = new Component({
     tag: "p",
     className: "user-login",
@@ -22,7 +22,7 @@ export default function createUserBlock({ login }: UserData): Component {
     if (!(event.target instanceof HTMLElement)) {
       throw new Error("Wrong  event");
     }
-    saveSelectedUserData(
+    setSelectedUserData(
       event.target.textContent!,
       event.target.classList.contains("active"),
     );

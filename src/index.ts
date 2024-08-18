@@ -3,18 +3,18 @@ import { ResponseId, RouteName } from "@/constants";
 import socket from "./socket";
 import handleRouting from "./routing/handle-routing";
 import startApp from "./app";
-import loginUser from "./requests/login";
+import loginUserOnServer from "./requests/login-user-on-server";
 import { getAuthorizedUser, getSelectedUserData } from "./storage";
 import {
   fillActiveUsers,
   fillInactiveUsers,
 } from "./components/main/fill-users-block";
 import isCurrentLocation from "./utils/compare-location";
-import getAllUsers from "./utils/get-all-users";
+import getAllUsers from "./requests/get-all-users";
 import { updateSelectedUserStatus } from "./components/main/dialog-header";
-import type { UserData } from "./types";
+import type { UserAuthData } from "./types";
 import changePage from "./routing/change-page";
-import getDialogHistory from "./requests/get-history";
+import getDialogHistoryWithUser from "./requests/get-dialog-history-with-user";
 import {
   fillDialogHistory,
   updateDialogHistory,
@@ -37,7 +37,7 @@ function handleActiveUsersOnMainUpdate(messageData: Response): void {
   }
   const selectedUserLogin = selectedUserData.split(" ")[0];
   const selectedUserIsActiveNow = users.filter(
-    (user: UserData) => user.login === selectedUserLogin,
+    (user: UserAuthData) => user.login === selectedUserLogin,
   );
   if (selectedUserIsActiveNow.length) {
     updateSelectedUserStatus(true);
@@ -53,7 +53,7 @@ function handleInactiveUsersOnMainUpdate(messageData: Response): void {
   }
   const selectedUserLogin = selectedUserData.split(" ")[0];
   const selectedUserIsNotActiveNow = users.filter(
-    (user: UserData) => user.login === selectedUserLogin,
+    (user: UserAuthData) => user.login === selectedUserLogin,
   );
   if (selectedUserIsNotActiveNow.length) {
     updateSelectedUserStatus(false);
@@ -111,7 +111,7 @@ socket.onmessage = (messageEvent: MessageEvent): void => {
 socket.onopen = (): void => {
   const user = getAuthorizedUser();
   if (user) {
-    loginUser(user);
+    loginUserOnServer(user);
   }
   if (isCurrentLocation(RouteName.Main)) {
     getAllUsers();
@@ -121,7 +121,7 @@ socket.onopen = (): void => {
     }
     const [login] = selectedUserData.split(" ");
     if (login) {
-      getDialogHistory(login);
+      getDialogHistoryWithUser(login);
     }
   }
 };

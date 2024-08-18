@@ -1,12 +1,13 @@
+import { ResponseId } from "@/constants";
 import socket from "@/socket";
 
-import type { UserData } from "@/types";
+import type { UserAuthData } from "@/types";
 
-export default function logoutUser(userData: UserData): void {
+export default function logoutUserOnServer(userData: UserAuthData): void {
   const { login, password } = userData;
   socket.send(
     JSON.stringify({
-      id: "logout",
+      id: ResponseId.Login,
       type: "USER_LOGOUT",
       payload: {
         user: {

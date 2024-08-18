@@ -1,6 +1,6 @@
 import socket from "@/socket";
 
-export default function getDialogHistory(login: string): void {
+export default function getDialogHistoryWithUser(login: string): void {
   socket.send(
     JSON.stringify({
       id: "history",

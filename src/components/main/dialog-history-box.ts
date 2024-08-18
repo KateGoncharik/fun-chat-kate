@@ -2,10 +2,10 @@ import { getSelectedUserData } from "@/storage";
 import safeQuerySelector from "@/utils/safe-query-selector";
 import Component from "component";
 import clearBox from "@/utils/clear-box";
-import getDialogHistory from "@/requests/get-history";
+import getDialogHistoryForUser from "@/requests/get-dialog-history-with-user";
 import messageBox from "./message";
 
-export default function createDialogHistory(): Component {
+export default function createDialogHistoryBox(): Component {
   const userData = getSelectedUserData();
   if (!userData) {
     return new Component(
@@ -51,7 +51,7 @@ export function fillDialogHistory(response: HistoryResponse): void {
   const dialogHistoryBox = safeQuerySelector(".dialog-history-box");
   clearBox(dialogHistoryBox);
   const { messages } = response.payload;
-  if (messages && messages.length) {
+  if (messages?.length) {
     messages.forEach((message) => {
       dialogHistoryBox.appendChild(messageBox(message).getNode());
     });
@@ -67,18 +67,19 @@ export function fillDialogHistory(response: HistoryResponse): void {
   const { scrollHeight } = dialogHistoryBox;
   dialogHistoryBox.scrollTop = scrollHeight;
 }
+
 export function updateDialogHistory(receiver?: string): void {
   const selected = getSelectedUserData();
   if (!selected) {
-    throw new Error("No user selected");
+    throw new Error("Selected user expected");
   }
   const login = selected.split(" ")[0];
   if (!login) {
     throw new Error("Invalid data");
   }
   if (receiver) {
-    getDialogHistory(receiver);
+    getDialogHistoryForUser(receiver);
   } else {
-    getDialogHistory(login);
+    getDialogHistoryForUser(login);
   }
 }

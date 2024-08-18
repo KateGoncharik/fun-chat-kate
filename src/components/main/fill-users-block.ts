@@ -1,9 +1,9 @@
-import type { UserData } from "@/types";
+import type { UserAuthData } from "@/types";
 import safeQuerySelector from "@/utils/safe-query-selector";
 import clearBox from "@/utils/clear-box";
 import createUserBlock from "./user-block";
 
-export function fillActiveUsers(data: UserData[]): void {
+export function fillActiveUsers(data: UserAuthData[]): void {
   const usersBlock = safeQuerySelector(".active-users");
   clearBox(usersBlock);
   const savedUser = sessionStorage.getItem("authorized-user");
@@ -24,7 +24,7 @@ export function fillActiveUsers(data: UserData[]): void {
   });
 }
 
-export function fillInactiveUsers(data: UserData[]): void {
+export function fillInactiveUsers(data: UserAuthData[]): void {
   const usersBlock = safeQuerySelector(".inactive-users");
   clearBox(usersBlock);
 

@@ -1,8 +1,8 @@
 import socket from "@/socket";
-import type { UserData } from "@/types";
+import type { UserAuthData } from "@/types";
 import { ResponseId } from "@/constants";
 
-export default function loginUser(userData: UserData): void {
+export default function loginUserOnServer(userData: UserAuthData): void {
   const { login, password } = userData;
   socket.send(
     JSON.stringify({
