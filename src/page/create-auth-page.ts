@@ -1,7 +1,7 @@
 import Component from "component";
 import isCurrentLocation from "@/utils/compare-location";
-import createInputs from "./auth-inputs";
-import handleLoginUser from "./handle-login-user.ts";
+import handleLoginUser from "@/components/auth/handle-login-user.ts";
+import createInputs from "@/components/auth/auth-inputs";
 
 export default function createAuthPage(): Component {
   const fieldSet = new Component(

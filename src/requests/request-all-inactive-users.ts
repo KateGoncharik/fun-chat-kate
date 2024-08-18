@@ -1,6 +1,6 @@
 import socket from "@/socket";
 
-export default function getAllInactiveUsers(): void {
+export default function requestAllInactiveUsers(): void {
   socket.send(
     JSON.stringify({
       id: "inactive",

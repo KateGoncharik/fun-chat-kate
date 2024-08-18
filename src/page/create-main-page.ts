@@ -1,8 +1,8 @@
 import Component from "component";
-import createHeader from "./header";
-import createFooter from "./footer";
-import createAllUsersBlock from "./all-users";
-import createDialogWindow from "./dialog-window";
+import createHeader from "../components/main/header";
+import createFooter from "../components/main/footer";
+import createAllUsersBlock from "../components/main/all-users";
+import createDialogWindow from "../components/main/dialog-window";
 
 export default function createMainPage(): Component {
   const users = createAllUsersBlock();

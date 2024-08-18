@@ -10,7 +10,7 @@ import {
   fillInactiveUsers,
 } from "./components/main/fill-users-block";
 import isCurrentLocation from "./utils/compare-location";
-import getAllUsers from "./requests/get-all-users";
+import requestAllUsers from "./requests/request-all-users";
 import { updateSelectedUserStatus } from "./components/main/dialog-header";
 import type { UserAuthData } from "./types";
 import changePage from "./routing/change-page";
@@ -61,11 +61,9 @@ function handleInactiveUsersOnMainUpdate(messageData: Response): void {
 }
 
 function rename(receiver?: string): void {
-  getAllUsers();
-  if (receiver) {
-    if (getSelectedUserData()) {
-      updateDialogHistory(receiver);
-    }
+  requestAllUsers();
+  if (receiver && getSelectedUserData()) {
+    updateDialogHistory(receiver);
   }
 }
 
@@ -79,7 +77,7 @@ socket.onmessage = (messageEvent: MessageEvent): void => {
   const messageId = messageData.id;
   if (messageId === ResponseId.Login) {
     changePage(RouteName.Main);
-    getAllUsers();
+    requestAllUsers();
   }
   if (messageId === ResponseId.Null && isCurrentLocation(RouteName.Main)) {
     if (
@@ -114,7 +112,7 @@ socket.onopen = (): void => {
     loginUserOnServer(user);
   }
   if (isCurrentLocation(RouteName.Main)) {
-    getAllUsers();
+    requestAllUsers();
     const selectedUserData = getSelectedUserData();
     if (!selectedUserData) {
       return;

@@ -1,7 +1,7 @@
-import createMainPage from "@/components/main/create-main";
+import createMainPage from "@/page/create-main-page";
 import Component from "component";
-import createAuthPage from "../components/auth/auth-page";
-import createAboutPage from "../components/about/about-page";
+import createAuthPage from "@/page/create-auth-page";
+import createAboutPage from "../page/create-about-page";
 
 export type Path = {
   title: string;

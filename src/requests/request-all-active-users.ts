@@ -1,6 +1,6 @@
 import socket from "@/socket";
 
-export default function getAllActiveUsers(): void {
+export default function requestAllActiveUsers(): void {
   socket.send(
     JSON.stringify({
       id: "active",
