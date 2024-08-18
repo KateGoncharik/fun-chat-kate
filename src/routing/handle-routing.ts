@@ -1,9 +1,9 @@
 import clearBox from "@/utils/clear-box";
 import safeQuerySelector from "@/utils/safe-query-selector";
-import requestAllUsers from "@/requests/get-all-users";
 import { getAuthorizedUser } from "@/storage";
 import { RouteName } from "@/constants";
 import { updateDialogHistory } from "@/components/main/dialog-history-box";
+import requestAllUsers from "@/requests/request-all-users";
 import routes from "./routes";
 import changePage from "./change-page";
 

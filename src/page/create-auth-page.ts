@@ -1,6 +1,6 @@
 import Component from "component";
 import isCurrentLocation from "@/utils/compare-location";
-import handleLoginUser from "@/components/auth/handle-login-user.ts";
+import handleLoginUser from "@/components/auth/handle-login-user";
 import createInputs from "@/components/auth/auth-inputs";
 
 export default function createAuthPage(): Component {
