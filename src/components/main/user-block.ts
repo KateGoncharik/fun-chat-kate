@@ -1,12 +1,14 @@
 import { setSelectedUserData } from "@/storage";
 import type { UserAuthData } from "@/types";
 import Component from "component";
+import safeQuerySelector from "@/utils/safe-query-selector";
 import { updateDialogHeader } from "./dialog-header";
-import {
-  updateCraftMessageBox,
-  clearInput,
-} from "./dialog-craft-message-block";
+import { updateCraftMessageBox } from "./dialog-craft-message-block";
 import { updateDialogHistory } from "./dialog-history-box";
+
+export function clearInput(): void {
+  safeQuerySelector<HTMLInputElement>(".message-input").value = "";
+}
 
 export default function createUserBlock({ login }: UserAuthData): Component {
   const userLogin = new Component({

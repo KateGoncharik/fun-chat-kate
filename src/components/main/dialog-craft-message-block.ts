@@ -6,9 +6,6 @@ import handleSendMessage from "./handle-send-message";
 function validateMessage(message: string): boolean {
   return message.length > 0;
 }
-export function clearInput(): void {
-  safeQuerySelector<HTMLInputElement>(".message-input").value = "";
-}
 
 export default function dialogCraftMessageBlock(): Component {
   const messageInput = new Component({

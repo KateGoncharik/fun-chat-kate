@@ -2,7 +2,7 @@ import { getSelectedUserData } from "@/storage";
 import safeQuerySelector from "@/utils/safe-query-selector";
 import Component from "component";
 import clearBox from "@/utils/clear-box";
-import getDialogHistoryForUser from "@/requests/get-dialog-history-with-user";
+import getDialogHistoryForUser from "@/requests/request-dialog-history-with-user";
 import messageBox from "./message";
 
 export default function createDialogHistoryBox(): Component {

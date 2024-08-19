@@ -14,7 +14,7 @@ import requestAllUsers from "./requests/request-all-users";
 import { updateSelectedUserStatus } from "./components/main/dialog-header";
 import type { UserAuthData } from "./types";
 import changePage from "./routing/change-page";
-import getDialogHistoryWithUser from "./requests/get-dialog-history-with-user";
+import requestDialogHistoryWithUser from "./requests/request-dialog-history-with-user";
 import {
   fillDialogHistory,
   updateDialogHistory,
@@ -104,7 +104,7 @@ socket.onmessage = (messageEvent: MessageEvent): void => {
   if (messageId === ResponseId.Login && getSelectedUserData()) {
     updateDialogHistory();
   }
-  if (messageId === "history") {
+  if (messageId === "history" && isCurrentLocation(RouteName.Main)) {
     fillDialogHistory(messageData.payload);
   }
 };
@@ -114,7 +114,7 @@ function handleOpenConnectionOnMain(): void {
 
   const selectedUser = getSelectedUserData();
   if (selectedUser) {
-    getDialogHistoryWithUser(selectedUser.login);
+    requestDialogHistoryWithUser(selectedUser.login);
   }
 }
 
