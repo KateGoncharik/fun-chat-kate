@@ -14,7 +14,16 @@ type MessageSendResponse = {
   };
 };
 
-export default function messageBox({
+function getFormattedTime(datetime: number): string {
+  const time = new Date(datetime);
+  const year = time.getFullYear();
+  const month = time.getMonth();
+  const date = time.getDate();
+
+  return `${year}-${month}-${date}`;
+}
+
+export default function createMessageBlock({
   datetime,
   from,
   id,
@@ -25,28 +34,27 @@ export default function messageBox({
     className: "message-status",
     text: status.isReaded ? "read" : "not read",
   });
-  const time = new Date(datetime);
-  const year = time.getFullYear();
-  const month = time.getMonth();
-  const date = time.getDate();
 
   const messageTime = new Component({
     className: "message-time",
-    text: `${year}-${month}-${date}`,
+    text: getFormattedTime(datetime),
   });
-  const messageTextBox = new Component({ className: "message-text-box", text });
-  const box = new Component(
-    { className: "message-box" },
-    messageTextBox,
+  const messageTextBlock = new Component({
+    className: "message-text-block",
+    text,
+  });
+  const messageBlock = new Component(
+    { className: "message-block" },
+    messageTextBlock,
     messageStatus,
     messageTime,
   );
 
   if (from === getAuthorizedUser()?.login) {
-    box.getNode().classList.add("mine");
+    messageBlock.getNode().classList.add("mine");
   } else {
-    box.getNode().classList.add("him");
+    messageBlock.getNode().classList.add("his");
   }
-  box.setAttribute("id", id);
-  return box;
+  messageBlock.setAttribute("id", id);
+  return messageBlock;
 }

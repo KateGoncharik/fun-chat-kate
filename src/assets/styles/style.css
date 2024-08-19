@@ -32,6 +32,10 @@ html {
   justify-content: center;
 }
 
+.auth, .about {
+  text-transform: uppercase;
+}
+
 .auth-form {
   margin: 0 auto;
   width: 50%;
@@ -179,7 +183,7 @@ html {
   color: gray;
 }
 
-.dialog-history-box {
+.dialog-history-block {
   height: 50vh;
   width: 95%;
   background-color: var(--chat3);
@@ -218,7 +222,7 @@ html {
   background-color: var(--chat4);
 }
 
-.message-box {
+.message-block {
   margin: 2%;
   padding: 2%;
 width: 50%;
@@ -229,7 +233,7 @@ width: 50%;
   border-radius: 20px;
 }
 
-.message-text-box {
+.message-text-block {
   font-size: 20px;
   font-weight: 600;
 }
@@ -243,7 +247,7 @@ width: 50%;
   text-align: right;
 }
 
-.him {
+.his {
   align-self: flex-start;
   text-align: left;
 

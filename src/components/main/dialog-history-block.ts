@@ -1,16 +1,16 @@
 import { getSelectedUserData } from "@/storage";
 import safeQuerySelector from "@/utils/safe-query-selector";
 import Component from "component";
-import clearBox from "@/utils/clear-box";
+import clearBlock from "@/utils/clear-block";
 import getDialogHistoryForUser from "@/requests/request-dialog-history-with-user";
-import messageBox from "./message";
+import createMessageBlock from "./message";
 
-export default function createDialogHistoryBox(): Component {
+export default function createDialogHistoryBlock(): Component {
   const userData = getSelectedUserData();
   if (!userData) {
     return new Component(
       {
-        className: "dialog-history-box",
+        className: "dialog-history-block",
       },
       new Component({
         tag: "h3",
@@ -21,7 +21,7 @@ export default function createDialogHistoryBox(): Component {
   }
 
   return new Component({
-    className: "dialog-history-box",
+    className: "dialog-history-block",
     text: "Start this conversation!",
   });
 }
@@ -44,14 +44,14 @@ export function fillDialogHistory({
 }: {
   messages: MessageSendResponse[];
 }): void {
-  const dialogHistoryBox = safeQuerySelector(".dialog-history-box");
-  clearBox(dialogHistoryBox);
+  const dialogHistoryBlock = safeQuerySelector(".dialog-history-block");
+  clearBlock(dialogHistoryBlock);
   if (messages?.length) {
     messages.forEach((message) => {
-      dialogHistoryBox.appendChild(messageBox(message).getNode());
+      dialogHistoryBlock.appendChild(createMessageBlock(message).getNode());
     });
   } else {
-    dialogHistoryBox.appendChild(
+    dialogHistoryBlock.appendChild(
       new Component({
         tag: "h3",
         className: "no-message-history-title",
@@ -59,8 +59,8 @@ export function fillDialogHistory({
       }).getNode(),
     );
   }
-  const { scrollHeight } = dialogHistoryBox;
-  dialogHistoryBox.scrollTop = scrollHeight;
+  const { scrollHeight } = dialogHistoryBlock;
+  dialogHistoryBlock.scrollTop = scrollHeight;
 }
 
 export function updateDialogHistory(receiver?: string): void {

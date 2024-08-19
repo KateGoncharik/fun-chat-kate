@@ -18,7 +18,7 @@ import requestDialogHistoryWithUser from "./requests/request-dialog-history-with
 import {
   fillDialogHistory,
   updateDialogHistory,
-} from "./components/main/dialog-history-box";
+} from "./components/main/dialog-history-block";
 
 startApp();
 

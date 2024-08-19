@@ -1,8 +1,8 @@
-import clearBox from "@/utils/clear-box";
+import clearBlock from "@/utils/clear-block";
 import safeQuerySelector from "@/utils/safe-query-selector";
 import { getAuthorizedUser } from "@/storage";
 import { RouteName } from "@/constants";
-import { updateDialogHistory } from "@/components/main/dialog-history-box";
+import { updateDialogHistory } from "@/components/main/dialog-history-block";
 import requestAllUsers from "@/requests/request-all-users";
 import routes from "./routes";
 import changePage from "./change-page";
@@ -34,6 +34,6 @@ export default async function handleRouting(): Promise<void> {
   document.title = title;
   const contentWrapper = safeQuerySelector<HTMLElement>(".content-wrapper");
 
-  clearBox(contentWrapper);
+  clearBlock(contentWrapper);
   contentWrapper.appendChild(getComponent().getNode());
 }

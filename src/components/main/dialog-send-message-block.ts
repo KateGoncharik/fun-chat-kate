@@ -2,6 +2,7 @@ import { getSelectedUserData } from "@/storage";
 import Component from "component";
 import safeQuerySelector from "@/utils/safe-query-selector";
 import handleSendMessage from "./handle-send-message";
+import clearInput from "../../utils/clear-input";
 
 function validateMessage(message: string): boolean {
   return message.length > 0;
@@ -28,6 +29,16 @@ export default function createSendMessageBlock(): Component {
       const input = safeQuerySelector<HTMLInputElement>(".message-input");
       if (validateMessage(input.value)) {
         handleSendMessage(selectedUser.login, input.value);
+        clearInput();
+      }
+    });
+    document.addEventListener("keydown", (e: KeyboardEvent): void => {
+      if (e.key === "Enter") {
+        const input = safeQuerySelector<HTMLInputElement>(".message-input");
+        if (validateMessage(input.value)) {
+          handleSendMessage(selectedUser.login, input.value);
+          clearInput();
+        }
       }
     });
   } else {

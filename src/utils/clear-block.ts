@@ -1,4 +1,4 @@
-export default function clearBox(element: HTMLElement): void {
+export default function clearBlock(element: HTMLElement): void {
   const elementToClear = element;
   elementToClear.innerHTML = "";
 }

@@ -6,13 +6,13 @@ export default function createNav(): Component {
   const aboutPageButton = new Component({
     tag: "button",
     className: "about",
-    text: "ABOUT",
+    text: "about",
   });
   aboutPageButton.addListener("click", () => changePage(RouteName.About));
   const authPageButton = new Component({
     tag: "button",
     className: "auth",
-    text: "AUTH",
+    text: "auth",
   });
   authPageButton.addListener("click", () => changePage(RouteName.Auth));
 

@@ -1,11 +1,11 @@
 import type { UserAuthData } from "@/types";
 import safeQuerySelector from "@/utils/safe-query-selector";
-import clearBox from "@/utils/clear-box";
+import clearBlock from "@/utils/clear-block";
 import createUserBlock from "./user-block";
 
 export function fillActiveUsers(data: UserAuthData[]): void {
   const usersBlock = safeQuerySelector(".active-users");
-  clearBox(usersBlock);
+  clearBlock(usersBlock);
   const savedUser = sessionStorage.getItem("authorized-user");
   if (!savedUser) {
     throw new Error("User expected");
@@ -26,7 +26,7 @@ export function fillActiveUsers(data: UserAuthData[]): void {
 
 export function fillInactiveUsers(data: UserAuthData[]): void {
   const usersBlock = safeQuerySelector(".inactive-users");
-  clearBox(usersBlock);
+  clearBlock(usersBlock);
 
   data.forEach((user) => {
     const userBlockComponent = createUserBlock(user);
