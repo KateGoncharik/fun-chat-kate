@@ -27,7 +27,7 @@ export default function dialogCraftMessageBlock(): Component {
 
   const userData = getSelectedUserData();
   if (userData) {
-    const [login] = userData.split(" ");
+    const { login } = userData;
     if (!login) {
       throw new Error("Login expected");
     }
@@ -55,7 +55,7 @@ export function updateCraftMessageBox(): void {
   if (!userData) {
     throw new Error("Selected user expected");
   }
-  const [login] = userData.split(" ");
+  const { login } = userData;
   if (!login) {
     throw new Error("Login expected");
   }

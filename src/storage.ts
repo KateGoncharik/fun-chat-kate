@@ -23,15 +23,20 @@ function getAuthorizedUser(): UserAuthData | null {
 }
 
 function setSelectedUserData(login: string, isActive: boolean): void {
-  sessionStorage.setItem(SELECTED_USER, `${login} ${isActive}`);
+  sessionStorage.setItem(SELECTED_USER, JSON.stringify({ login, isActive }));
 }
 
-function getSelectedUserData(): string | null {
+type User = {
+  login: string;
+  isActive: boolean;
+};
+
+function getSelectedUserData(): User | null {
   const selectedUser = sessionStorage.getItem(SELECTED_USER);
   if (!selectedUser) {
     return null;
   }
-  return selectedUser;
+  return JSON.parse(selectedUser);
 }
 
 export {

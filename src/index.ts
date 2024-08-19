@@ -31,13 +31,13 @@ type Response = {
 function handleActiveUsersOnMainUpdate(messageData: Response): void {
   const { users } = messageData.payload;
   fillActiveUsers(users);
-  const selectedUserData = getSelectedUserData();
-  if (!selectedUserData) {
+  const selectedUser = getSelectedUserData();
+  if (!selectedUser) {
     return;
   }
-  const selectedUserLogin = selectedUserData.split(" ")[0];
+  const { login } = selectedUser;
   const selectedUserIsActiveNow = users.filter(
-    (user: UserAuthData) => user.login === selectedUserLogin,
+    (user: UserAuthData) => user.login === login,
   );
   if (selectedUserIsActiveNow.length) {
     updateSelectedUserStatus(true);
@@ -47,20 +47,20 @@ function handleActiveUsersOnMainUpdate(messageData: Response): void {
 function handleInactiveUsersOnMainUpdate(messageData: Response): void {
   const { users } = messageData.payload;
   fillInactiveUsers(users);
-  const selectedUserData = getSelectedUserData();
-  if (!selectedUserData) {
+  const selectedUser = getSelectedUserData();
+  if (!selectedUser) {
     return;
   }
-  const selectedUserLogin = selectedUserData.split(" ")[0];
+  const { login } = selectedUser;
   const selectedUserIsNotActiveNow = users.filter(
-    (user: UserAuthData) => user.login === selectedUserLogin,
+    (user: UserAuthData) => user.login === login,
   );
   if (selectedUserIsNotActiveNow.length) {
     updateSelectedUserStatus(false);
   }
 }
 
-function rename(receiver?: string): void {
+function requestUsersOrUpdateDialogHistory(receiver?: string): void {
   requestAllUsers();
   if (receiver && getSelectedUserData()) {
     updateDialogHistory(receiver);
@@ -80,12 +80,14 @@ socket.onmessage = (messageEvent: MessageEvent): void => {
     requestAllUsers();
   }
   if (messageId === ResponseId.Null && isCurrentLocation(RouteName.Main)) {
+    const selectedUser = getSelectedUserData();
     if (
-      messageData.payload.message?.from === getSelectedUserData()?.split(" ")[0]
+      selectedUser &&
+      messageData.payload.message?.from === selectedUser.login
     ) {
-      rename(messageData.payload.message.from);
+      requestUsersOrUpdateDialogHistory(messageData.payload.message.from);
     } else {
-      rename();
+      requestUsersOrUpdateDialogHistory();
     }
   }
   if (messageId === ResponseId.Active && isCurrentLocation(RouteName.Main)) {
@@ -103,24 +105,26 @@ socket.onmessage = (messageEvent: MessageEvent): void => {
     updateDialogHistory();
   }
   if (messageId === "history") {
-    fillDialogHistory(messageData);
+    fillDialogHistory(messageData.payload);
   }
 };
+
+function handleOpenConnectionOnMain(): void {
+  requestAllUsers();
+
+  const selectedUser = getSelectedUserData();
+  if (selectedUser) {
+    getDialogHistoryWithUser(selectedUser.login);
+  }
+}
+
 socket.onopen = (): void => {
   const user = getAuthorizedUser();
   if (user) {
     loginUserOnServer(user);
   }
   if (isCurrentLocation(RouteName.Main)) {
-    requestAllUsers();
-    const selectedUserData = getSelectedUserData();
-    if (!selectedUserData) {
-      return;
-    }
-    const [login] = selectedUserData.split(" ");
-    if (login) {
-      getDialogHistoryWithUser(login);
-    }
+    handleOpenConnectionOnMain();
   }
 };
 

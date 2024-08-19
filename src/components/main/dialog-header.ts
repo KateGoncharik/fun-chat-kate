@@ -3,8 +3,8 @@ import safeQuerySelector from "@/utils/safe-query-selector";
 import Component from "component";
 
 export default function createDialogHeader(): Component {
-  const userData = getSelectedUserData();
-  if (!userData) {
+  const selectedUser = getSelectedUserData();
+  if (!selectedUser) {
     return new Component(
       { className: "dialog-header" },
       new Component({
@@ -17,7 +17,7 @@ export default function createDialogHeader(): Component {
       }),
     );
   }
-  const [login, isActive] = userData.split(" ");
+  const { login, isActive } = selectedUser;
 
   const loginOfCompanion = new Component({
     className: "login-of-companion",
@@ -39,20 +39,15 @@ export default function createDialogHeader(): Component {
 }
 
 export function updateDialogHeader(): void {
-  const selectedUserData = getSelectedUserData();
-  if (!selectedUserData) {
+  const selectedUser = getSelectedUserData();
+  if (!selectedUser) {
     throw new Error("Selected user expected");
   }
-  const selectedUserLogin = selectedUserData.split(" ")[0];
-  const selectedUserStatus = selectedUserData.split(" ")[1];
 
-  if (!selectedUserLogin || !selectedUserStatus) {
-    throw new Error("Invalid data");
-  }
   const loginBlock = safeQuerySelector(".login-of-companion");
-  loginBlock.innerHTML = selectedUserLogin;
+  loginBlock.innerHTML = selectedUser.login;
   const statusBlock = safeQuerySelector(".status-of-companion");
-  statusBlock.innerText = selectedUserStatus === "true" ? "online" : "offline";
+  statusBlock.innerText = selectedUser.isActive === true ? "online" : "offline";
 }
 
 export function updateSelectedUserStatus(isActive: boolean): void {

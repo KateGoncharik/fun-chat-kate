@@ -26,14 +26,6 @@ export default function createDialogHistoryBox(): Component {
   });
 }
 
-type HistoryResponse = {
-  id: string;
-  type: "MSG_FROM_USER";
-  payload: {
-    messages: MessageSendResponse[];
-  };
-};
-
 type MessageSendResponse = {
   id: string;
   from: string;
@@ -47,10 +39,13 @@ type MessageSendResponse = {
   };
 };
 
-export function fillDialogHistory(response: HistoryResponse): void {
+export function fillDialogHistory({
+  messages,
+}: {
+  messages: MessageSendResponse[];
+}): void {
   const dialogHistoryBox = safeQuerySelector(".dialog-history-box");
   clearBox(dialogHistoryBox);
-  const { messages } = response.payload;
   if (messages?.length) {
     messages.forEach((message) => {
       dialogHistoryBox.appendChild(messageBox(message).getNode());
@@ -69,17 +64,14 @@ export function fillDialogHistory(response: HistoryResponse): void {
 }
 
 export function updateDialogHistory(receiver?: string): void {
-  const selected = getSelectedUserData();
-  if (!selected) {
+  const selectedUser = getSelectedUserData();
+  if (!selectedUser) {
     throw new Error("Selected user expected");
   }
-  const login = selected.split(" ")[0];
-  if (!login) {
-    throw new Error("Invalid data");
-  }
+
   if (receiver) {
     getDialogHistoryForUser(receiver);
   } else {
-    getDialogHistoryForUser(login);
+    getDialogHistoryForUser(selectedUser.login);
   }
 }
