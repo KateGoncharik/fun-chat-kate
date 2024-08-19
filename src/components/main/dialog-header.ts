@@ -1,9 +1,9 @@
-import { getSelectedUserData } from "@/storage";
+import Storage from "@/storage";
 import safeQuerySelector from "@/utils/safe-query-selector";
 import Component from "component";
 
 export default function createDialogHeader(): Component {
-  const selectedUser = getSelectedUserData();
+  const selectedUser = Storage.getSelectedUserData();
   if (!selectedUser) {
     return new Component(
       { className: "dialog-header" },
@@ -39,7 +39,7 @@ export default function createDialogHeader(): Component {
 }
 
 export function updateDialogHeader(): void {
-  const selectedUser = getSelectedUserData();
+  const selectedUser = Storage.getSelectedUserData();
   if (!selectedUser) {
     throw new Error("Selected user expected");
   }
@@ -51,7 +51,7 @@ export function updateDialogHeader(): void {
 }
 
 export function updateSelectedUserStatus(isActive: boolean): void {
-  const selectedUser = getSelectedUserData();
+  const selectedUser = Storage.getSelectedUserData();
   if (!selectedUser) {
     return;
   }

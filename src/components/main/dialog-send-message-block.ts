@@ -1,6 +1,6 @@
-import { getSelectedUserData } from "@/storage";
 import Component from "component";
 import safeQuerySelector from "@/utils/safe-query-selector";
+import Storage from "@/storage";
 import handleSendMessage from "./handle-send-message";
 import clearInput from "../../utils/clear-input";
 
@@ -23,7 +23,7 @@ export default function createSendMessageBlock(): Component {
     text: "Send",
   });
 
-  const selectedUser = getSelectedUserData();
+  const selectedUser = Storage.getSelectedUserData();
   if (selectedUser) {
     sendMessageButton.addListener("click", () => {
       const input = safeQuerySelector<HTMLInputElement>(".message-input");
@@ -55,7 +55,7 @@ export default function createSendMessageBlock(): Component {
 }
 
 export function updateSendMessageBlock(): void {
-  const userData = getSelectedUserData();
+  const userData = Storage.getSelectedUserData();
   if (!userData) {
     throw new Error("Selected user expected");
   }

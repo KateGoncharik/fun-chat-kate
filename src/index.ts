@@ -4,7 +4,6 @@ import socket from "./socket";
 import handleRouting from "./routing/handle-routing";
 import startApp from "./app";
 import loginUserOnServer from "./requests/login-user-on-server";
-import { getAuthorizedUser, getSelectedUserData } from "./storage";
 import {
   fillActiveUsers,
   fillInactiveUsers,
@@ -19,6 +18,7 @@ import {
   fillDialogHistory,
   updateDialogHistory,
 } from "./components/main/dialog-history-block";
+import Storage from "./storage";
 
 startApp();
 
@@ -31,7 +31,7 @@ type Response = {
 function handleActiveUsersOnMainUpdate(messageData: Response): void {
   const { users } = messageData.payload;
   fillActiveUsers(users);
-  const selectedUser = getSelectedUserData();
+  const selectedUser = Storage.getSelectedUserData();
   if (!selectedUser) {
     return;
   }
@@ -47,7 +47,7 @@ function handleActiveUsersOnMainUpdate(messageData: Response): void {
 function handleInactiveUsersOnMainUpdate(messageData: Response): void {
   const { users } = messageData.payload;
   fillInactiveUsers(users);
-  const selectedUser = getSelectedUserData();
+  const selectedUser = Storage.getSelectedUserData();
   if (!selectedUser) {
     return;
   }
@@ -62,7 +62,7 @@ function handleInactiveUsersOnMainUpdate(messageData: Response): void {
 
 function requestUsersOrUpdateDialogHistory(receiver?: string): void {
   requestAllUsers();
-  if (receiver && getSelectedUserData()) {
+  if (receiver && Storage.getSelectedUserData()) {
     updateDialogHistory(receiver);
   }
 }
@@ -80,7 +80,7 @@ socket.onmessage = (messageEvent: MessageEvent): void => {
     requestAllUsers();
   }
   if (messageId === ResponseId.Null && isCurrentLocation(RouteName.Main)) {
-    const selectedUser = getSelectedUserData();
+    const selectedUser = Storage.getSelectedUserData();
     if (
       selectedUser &&
       messageData.payload.message?.from === selectedUser.login
@@ -101,7 +101,7 @@ socket.onmessage = (messageEvent: MessageEvent): void => {
   if (messageId === "send-message") {
     updateDialogHistory();
   }
-  if (messageId === ResponseId.Login && getSelectedUserData()) {
+  if (messageId === ResponseId.Login && Storage.getSelectedUserData()) {
     updateDialogHistory();
   }
   if (messageId === "history" && isCurrentLocation(RouteName.Main)) {
@@ -112,14 +112,14 @@ socket.onmessage = (messageEvent: MessageEvent): void => {
 function handleOpenConnectionOnMain(): void {
   requestAllUsers();
 
-  const selectedUser = getSelectedUserData();
+  const selectedUser = Storage.getSelectedUserData();
   if (selectedUser) {
     requestDialogHistoryWithUser(selectedUser.login);
   }
 }
 
 socket.onopen = (): void => {
-  const user = getAuthorizedUser();
+  const user = Storage.getAuthorizedUser();
   if (user) {
     loginUserOnServer(user);
   }

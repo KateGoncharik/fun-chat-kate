@@ -1,12 +1,12 @@
-import { getSelectedUserData } from "@/storage";
 import safeQuerySelector from "@/utils/safe-query-selector";
 import Component from "component";
 import clearBlock from "@/utils/clear-block";
 import getDialogHistoryForUser from "@/requests/request-dialog-history-with-user";
+import Storage from "@/storage";
 import createMessageBlock from "./message";
 
 export default function createDialogHistoryBlock(): Component {
-  const userData = getSelectedUserData();
+  const userData = Storage.getSelectedUserData();
   if (!userData) {
     return new Component(
       {
@@ -64,7 +64,7 @@ export function fillDialogHistory({
 }
 
 export function updateDialogHistory(receiver?: string): void {
-  const selectedUser = getSelectedUserData();
+  const selectedUser = Storage.getSelectedUserData();
   if (!selectedUser) {
     throw new Error("Selected user expected");
   }

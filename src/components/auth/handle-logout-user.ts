@@ -1,7 +1,7 @@
 import logoutUserOnServer from "@/requests/logout-user-on-server";
-import { removeAuthorizedUserFromLocalStorage } from "@/storage";
 import changePage from "@/routing/change-page";
 import { RouteName } from "@/constants";
+import Storage from "@/storage";
 
 export default function handleLogoutUser(): void {
   const savedUser = sessionStorage.getItem("authorized-user");
@@ -9,6 +9,6 @@ export default function handleLogoutUser(): void {
     return;
   }
   logoutUserOnServer(JSON.parse(savedUser));
-  removeAuthorizedUserFromLocalStorage();
+  Storage.removeAuthorizedUserFromLocalStorage();
   changePage(RouteName.Auth);
 }

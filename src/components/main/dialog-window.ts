@@ -4,12 +4,12 @@ import createDialogHistoryBlock from "./dialog-history-block";
 import createSendMessageBlock from "./dialog-send-message-block";
 
 export default function createDialogWindow(): Component {
-  const dialogBox = createDialogHeader();
+  const dialogHeader = createDialogHeader();
   return new Component(
     {
       className: "dialog-window",
     },
-    dialogBox,
+    dialogHeader,
     createDialogHistoryBlock(),
     createSendMessageBlock(),
   );

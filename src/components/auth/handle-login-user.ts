@@ -1,6 +1,6 @@
-import { setAuthorizedUser } from "@/storage";
 import loginUserOnServer from "@/requests/login-user-on-server";
 
+import Storage from "@/storage";
 import collectUserData from "./collect-user-data";
 import validateForm from "./validate";
 
@@ -12,6 +12,6 @@ export default function handleLoginUser(event: Event): void {
   }
 
   const userData = collectUserData();
-  setAuthorizedUser(userData);
+  Storage.setAuthorizedUser(userData);
   loginUserOnServer(userData);
 }

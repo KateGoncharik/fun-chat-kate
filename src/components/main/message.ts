@@ -1,4 +1,4 @@
-import { getAuthorizedUser } from "@/storage";
+import Storage from "@/storage";
 import Component from "component";
 
 type MessageSendResponse = {
@@ -50,7 +50,7 @@ export default function createMessageBlock({
     messageTime,
   );
 
-  if (from === getAuthorizedUser()?.login) {
+  if (from === Storage.getAuthorizedUser()?.login) {
     messageBlock.getNode().classList.add("mine");
   } else {
     messageBlock.getNode().classList.add("his");

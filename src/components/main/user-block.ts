@@ -1,6 +1,6 @@
-import { setSelectedUserData } from "@/storage";
 import type { UserAuthData } from "@/types";
 import Component from "component";
+import Storage from "@/storage";
 import { updateDialogHeader } from "./dialog-header";
 import { updateSendMessageBlock } from "./dialog-send-message-block";
 import { updateDialogHistory } from "./dialog-history-block";
@@ -20,7 +20,7 @@ export default function createUserBlock({ login }: UserAuthData): Component {
     if (!(event.target instanceof HTMLElement)) {
       throw new Error("Wrong  event");
     }
-    setSelectedUserData(
+    Storage.setSelectedUserData(
       event.target.textContent!,
       event.target.classList.contains("active"),
     );

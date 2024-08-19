@@ -1,9 +1,9 @@
 import clearBlock from "@/utils/clear-block";
 import safeQuerySelector from "@/utils/safe-query-selector";
-import { getAuthorizedUser } from "@/storage";
 import { RouteName } from "@/constants";
 import { updateDialogHistory } from "@/components/main/dialog-history-block";
 import requestAllUsers from "@/requests/request-all-users";
+import Storage from "@/storage";
 import routes from "./routes";
 import changePage from "./change-page";
 
@@ -13,14 +13,14 @@ export default async function handleRouting(): Promise<void> {
     location = RouteName.Auth;
     changePage(RouteName.Auth);
   }
-  if (getAuthorizedUser() && location === RouteName.Auth) {
+  if (Storage.getAuthorizedUser() && location === RouteName.Auth) {
     location = RouteName.Main;
     changePage(RouteName.Main);
     requestAllUsers();
     updateDialogHistory();
   }
 
-  if (!getAuthorizedUser() && location === RouteName.Main) {
+  if (!Storage.getAuthorizedUser() && location === RouteName.Main) {
     location = RouteName.Auth;
     changePage(RouteName.Auth);
   }
