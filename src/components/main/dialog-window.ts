@@ -1,7 +1,7 @@
 import Component from "component";
 import createDialogHeader from "./dialog-header";
 import createDialogHistoryBox from "./dialog-history-box";
-import dialogCraftMessageBlock from "./dialog-craft-message-block";
+import createSendMessageBlock from "./dialog-send-message-block";
 
 export default function createDialogWindow(): Component {
   const dialogBox = createDialogHeader();
@@ -11,6 +11,6 @@ export default function createDialogWindow(): Component {
     },
     dialogBox,
     createDialogHistoryBox(),
-    dialogCraftMessageBlock(),
+    createSendMessageBlock(),
   );
 }

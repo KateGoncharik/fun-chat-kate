@@ -3,7 +3,7 @@ import type { UserAuthData } from "@/types";
 import Component from "component";
 import safeQuerySelector from "@/utils/safe-query-selector";
 import { updateDialogHeader } from "./dialog-header";
-import { updateCraftMessageBox } from "./dialog-craft-message-block";
+import { updateSendMessageBlock } from "./dialog-send-message-block";
 import { updateDialogHistory } from "./dialog-history-box";
 
 export function clearInput(): void {
@@ -30,7 +30,7 @@ export default function createUserBlock({ login }: UserAuthData): Component {
     );
     updateDialogHeader();
     updateDialogHistory();
-    updateCraftMessageBox();
+    updateSendMessageBlock();
     clearInput();
   });
   return userBlock;

@@ -7,7 +7,7 @@ function validateMessage(message: string): boolean {
   return message.length > 0;
 }
 
-export default function dialogCraftMessageBlock(): Component {
+export default function createSendMessageBlock(): Component {
   const messageInput = new Component({
     tag: "input",
     className: "message-input",
@@ -22,16 +22,12 @@ export default function dialogCraftMessageBlock(): Component {
     text: "Send",
   });
 
-  const userData = getSelectedUserData();
-  if (userData) {
-    const { login } = userData;
-    if (!login) {
-      throw new Error("Login expected");
-    }
+  const selectedUser = getSelectedUserData();
+  if (selectedUser) {
     sendMessageButton.addListener("click", () => {
       const input = safeQuerySelector<HTMLInputElement>(".message-input");
       if (validateMessage(input.value)) {
-        handleSendMessage(login, input.value);
+        handleSendMessage(selectedUser.login, input.value);
       }
     });
   } else {
@@ -40,22 +36,20 @@ export default function dialogCraftMessageBlock(): Component {
   }
   return new Component(
     {
-      className: "dialog-craft-message-box",
+      className: "send-message-block",
     },
     messageInput,
     sendMessageButton,
   );
 }
 
-export function updateCraftMessageBox(): void {
+export function updateSendMessageBlock(): void {
   const userData = getSelectedUserData();
   if (!userData) {
     throw new Error("Selected user expected");
   }
   const { login } = userData;
-  if (!login) {
-    throw new Error("Login expected");
-  }
+
   safeQuerySelector(".message-input").removeAttribute("disabled");
   const sendMessageButton = safeQuerySelector<HTMLButtonElement>(
     ".send-message-button",
