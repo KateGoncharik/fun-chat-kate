@@ -21,14 +21,7 @@
     "node": true
   },
   "rules": {
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "ts": "never"
-      }
-    ],
+    "import/extensions": ["error", "never", { "ignorePackages": true }],
     "curly": ["error", "all"],
     "max-lines-per-function": ["error", 40],
     "@typescript-eslint/no-explicit-any": "error",
